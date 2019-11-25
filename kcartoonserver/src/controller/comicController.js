@@ -61,9 +61,52 @@ async function postCut(req, res) {
     }
 }
 
+async function getCutVoteList(req, res) {
+    try {
+        let cutData = await comicService.getCutVoteList(req.headers.authorization, req.params.comicIdx);
+        if(cutData == 0) {
+            console.log('토큰 오류');
+            errResponse(res, returnCode.UNAUTHORIZED, '토큰 오류');
+        } else if (cutData == -1){
+            console.log('만화 선택 오류');
+            errResponse(res, returnCode.BAD_REQUEST, '만화 선택 오류');
+        } else {
+            response(res, returnCode.OK, cutData);
+        }
+    } catch (error) {
+        console.log(error.message);
+        errResponse(res, returnCode.INTERNAL_SERVER_ERROR, '서버 오류');
+    }
+}
+
+async function postCutVote(req, res) {
+    try {
+        let cutData = await comicService.postCutVote(req.headers.authorization, req.params.comicIdx, req.body.cutIdx);
+        if(cutData == 0) {
+            console.log('토큰 오류');
+            errResponse(res, returnCode.UNAUTHORIZED, '토큰 오류');
+        } else if (cutData == -1){
+            console.log('만화 선택 오류');
+            errResponse(res, returnCode.BAD_REQUEST, '만화 선택 오류');
+        } else if (cutData == -2) {
+            console.log('투표 기록 있음');
+            errResponse(res, returnCode.BAD_REQUEST, '투표 기록 있음');
+        }
+        else {
+            console.log('만화 선택 성공');
+            response(res, returnCode.OK, '만화 선택 성공');
+        }
+    } catch (error) {
+        console.log(error.message);
+        errResponse(res, returnCode.INTERNAL_SERVER_ERROR, '서버 오류');
+    }
+}
+
 module.exports = {
     postCut,
     postComic,
     getComic,
-    getComicDetail
+    getComicDetail,
+    getCutVoteList,
+    postCutVote
 }

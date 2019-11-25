@@ -5,6 +5,6 @@ router.use('/login', require('./login'));
 router.use('/signup', require('./signup'));
 router.use('/comic', require('./comic'));
 router.use('/ranking', require('./ranking'));
-// router.use('/user', require('./user'));
+router.use('/user', require('./user'));
 
 module.exports = router;

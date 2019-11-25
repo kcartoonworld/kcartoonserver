@@ -20,10 +20,16 @@ async function selectUserByIdx(userIdx){
     return await mysql.query(selectQuery, [userIdx]);
 }
 
+async function updateUserPassword(userIdx, password) {
+    const updateQuery = `UPDATE user SET userPassword = ? WHERE userIdx = ?`;
+    return await mysql.query(updateQuery, [password, userIdx]);
+}
+
 
 module.exports = {
     selectUserByEmailAndPw,
     selectUserByEmail,
     insertUser,
-    selectUserByIdx
+    selectUserByIdx,
+    updateUserPassword
 }

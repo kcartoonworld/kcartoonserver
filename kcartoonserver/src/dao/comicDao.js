@@ -23,6 +23,11 @@ async function selectComicGroupByComic() {
     return await mysql.query(selectQuery);
 }
 
+async function updateComicInquery(comicIdx) {
+    const updateQuery = `UPDATE comic SET comicIndex = comicIndex + 1 WHERE comicIdx = ?`
+    return await mysql.query(updateQuery, [comicIdx]);
+}
+
 async function insertComic(title, userIdx, url){
     const insertQuery = `INSERT INTO comic(comicName, userIdx, comicThumbnailImg) VALUES (?, ?, ?)`;
     return await mysql.query(insertQuery, [title, userIdx, url]);
@@ -38,5 +43,6 @@ module.exports = {
     selectComicGroupByUser,
     selectComicGroupByComic,
     insertComic,
-    selectMainComic
+    selectMainComic,
+    updateComicInquery
 }

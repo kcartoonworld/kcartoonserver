@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-const signupController = require('../controller/userController');
+const userController = require('../controller/userController');
 
-router.post('/', '')
+router.get('/mycomic', userController.getMyComic);
+router.put('/password', userController.putPassword);
+router.get('/', userController.getUser);
 
 module.exports = router;

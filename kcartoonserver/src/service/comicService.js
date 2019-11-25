@@ -1,6 +1,7 @@
 const cutDao = require('../dao/cutDao');
 const userDao = require('../dao/userDao');
 const comicDao = require('../dao/comicDao');
+const cutVoteDao = require('../dao/cutVoteDao');
 
 const { verify } = require('../library/jwt');
 
@@ -56,6 +57,7 @@ async function postCut(url, userToken, comicIdx) {
 }
 
 async function getComicDetail(comicIdx) {
+    await comicDao.updateComicInquery(comicIdx);
     const comicData = await comicDao.selectComicByIdx(comicIdx);
     if(comicData.length == 0) {
         return -1;
@@ -65,9 +67,46 @@ async function getComicDetail(comicIdx) {
     }
 }
 
+async function getCutVoteList(token, comicIdx) {
+    const verifyedData = verify(token);
+    if(verifyedData < 0) {
+        return 0;
+    } else {
+        const comicData = await comicDao.selectComicByIdx(comicIdx);
+        if(comicData.length == 0) {
+            return -1;
+        }
+        const newCutData = await cutDao.selectNewCutListByComicIdx(comicIdx);
+        return newCutData;
+    }
+}
+
+async function postCutVote(token, comicIdx, cutIdx) {
+    const verifyedData = verify(token);
+    if(verifyedData < 0) {
+        return 0;
+    } else {
+        const comicData = await comicDao.selectComicByIdx(comicIdx);
+        if(comicData.length == 0) {
+            return -1;
+        }
+        const userIdx = verifyedData.idx.userIdx;
+        const checkVote = await cutVoteDao.selectCutVoteByUseridxComicidx(userIdx, comicIdx);
+        if(checkVote.length > 0) {
+            return -2;
+        }
+        
+        const resultData = await cutVoteDao.insertCutVote(userIdx, comicIdx, cutIdx);
+        await cutDao.updateCutVote(cutIdx);
+        return resultData;
+    }
+}
+
 module.exports = {
     postCut,
     postComic,
     getComic,
-    getComicDetail
+    getComicDetail,
+    getCutVoteList,
+    postCutVote
 }
