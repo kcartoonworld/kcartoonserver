@@ -15,8 +15,15 @@ async function insertUser(userData){
     return await mysql.query(insertQuery, [userData.email, userData.password, userData.nickname]);
 }
 
+async function selectUserByIdx(userIdx){
+    const selectQuery = `SELECT * FROM user WHERE userIdx = ?`;
+    return await mysql.query(selectQuery, [userIdx]);
+}
+
+
 module.exports = {
     selectUserByEmailAndPw,
     selectUserByEmail,
-    insertUser
+    insertUser,
+    selectUserByIdx
 }
