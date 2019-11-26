@@ -92,7 +92,7 @@ npm install
 npm start
 ```
 
-> localhost:1810으로 접속 가능합니다.
+> localhost:5309으로 접속 가능합니다.
 
 
 
