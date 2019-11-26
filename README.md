@@ -40,7 +40,7 @@
 
 ## DB ERD
 
-![ERD]()
+![ERD](https://user-images.githubusercontent.com/30704569/69640400-9db6bf80-10a1-11ea-890a-c8804168e020.png)
 
 
 
