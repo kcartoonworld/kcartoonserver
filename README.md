@@ -40,7 +40,7 @@
 
 ## DB ERD
 
-![ERD](https://github.com/JeonHa/JeonHa-Server/blob/master/public/images/ERD.png)
+![ERD]()
 
 
 
