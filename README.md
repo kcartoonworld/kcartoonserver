@@ -68,7 +68,7 @@
 
 ## 시작하기
 
-소스 코드는 MAC OS + Windows10 + Visiau Studio Code + Node v11.6.0 + NPM v6.10.1환경에서 제작되었습니다.
+소스 코드는 Windows10 + Visiau Studio Code + Node v11.6.0 + NPM v6.10.1환경에서 제작되었습니다.
 
 * Node.js의 Async/Await 도구를 사용해 (Promise) 비동기 제어를 하고 있습니다.
 
